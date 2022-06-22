@@ -28,6 +28,16 @@ namespace foodPickerAPI
         {
             services.AddSingleton<FitbitService, FitbitService>();
             services.AddControllers();
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    policy =>
+                    {
+                        policy.WithOrigins("http://109.74.195.63",
+                                            "http://localhost:19006");
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +51,8 @@ namespace foodPickerAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
